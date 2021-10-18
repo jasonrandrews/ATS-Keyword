@@ -28,17 +28,26 @@ Follow these simple steps to use this code example's keyword detection applicati
 
 ## Launch Arm Virtual Hardware Instance
 
+### Launch Using AWS Web Console
 To utilize the Arm Virtual Hardware, you will need to create an [AWS Account](https://aws.amazon.com/) if you don’t already have one.
 
-You can [launch](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html) a new instance using the [AWS EC2](https://console.aws.amazon.com/ec2/v2/) web interface. You must select the Arm Virtual Hardware as the [Amazon Machine Image](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) to use. This image contains all the software necessary to build and run the Arm IoT Total Solutions.
+#### Launching the instance in EC2 [(AWS on getting started)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
+1. Go to [EC2](https://console.aws.amazon.com/ec2/v2/) in the AWS Web Console.
+1. Select **Launch Instances** which will take you to a wizard for launching the instance.
+  1. **Step 1: Choose an [Amazon Machine Image (AMI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)** - In the Search box, type `Arm Virtual Hardware` then find the item called "Arm Virtual Hardware" that is by Arm, and press Select for that item. This image contains all the software necessary to build and run the Arm IoT Total Solutions.
+  This will raise a subscription page/pop-up titled, **Arm Virtual Hardware**. You will note that the subscription is free from Arm, but AWS does charge for the costs of the instances themselves according to the pricing chart provided. You must select Continue if you want to move forward.
+  1. **Step 2: Choose an Instance Type** - Select one of the instance types from the list. We recommend the **c5.large**. Keep in mind that there are charges that accrue while the instance is running.
+  From here you may select **Review and Launch** to move directly to the launch page or select **Next: Configure Instance Details** if you need to set any custom settings for this instance.
 
-Another option is to use the `avh_cli.py` script to launch a new instance for you. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) must be configured on your machine and a provisioning [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) must be available in AWS. 
+#### Selecting the instance
+Once you complete the wizard by initiating the instance launch you will see a page that allows you to navigate directly to the new instance. You may click this link or go back to your list of instances and find the instance through that method.
 
-Open your favorite terminal program or linux shell application then start a new instance:
+Whichever way you choose find your new instance and select its instance ID to open the page to manage the instance.
 
-```sh
-./scripts/avh_cli.py -k <key pair name> start
-```
+#### Connecting to the instance: 
+1. Select **Connect** to open an SSH terminal session to the instance in your browser.
+1. Ensure the User name field is set to `ubuntu`.
+1. Select the **Connect** button to open the session. This will put you in a browser window where you will have an SSH terminal window ready for your input.
 
 ## Build and execute the application
 
