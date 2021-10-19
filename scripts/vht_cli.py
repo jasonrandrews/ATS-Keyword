@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 '''
 Copyright 2021 Arm Ltd
@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
+
 import argparse
 import sys
 import os
@@ -25,10 +26,8 @@ import logging
 import platform
 
 
-# AWS AVH-TEST connection details
-# TODO will eventually change to public AMI
-# version 0.3.0
-ImgId="ami-030e410551d9b5fa5"
+# Arm Virtual Hardware AMI version
+avh_version="1.0.0"
 
 InstType="t3a.medium"
 
@@ -52,19 +51,41 @@ else:
     nc="\033[0m"
 
 
-def start_avh(profile, key, region, initfile):
-    global ImgId, InstType
+def get_avh_imgid(region):
+    global avh_version
 
-    if status_avh(profile, region, False)[0] > 0 :
+    cmd_im = "aws ec2 describe-images --region {} --filters Name=name,Values='ArmVirtualHardware-{}*' Name=owner-alias,Values='aws-marketplace' --output json".format(
+    	    region, avh_version)
+
+    try:
+        out_im = subprocess.check_output(cmd_im, stderr=subprocess.STDOUT, shell=True).decode("utf-8")
+    except subprocess.CalledProcessError as e:
+        logging.error(red + "Could not get Arm Virtual Hardware Instance ID for region {}.".format(region) + nc)
+        sys.exit(1)
+
+    outd_im = json.loads(out_im)
+    for instance in outd_im['Images']:
+        ImgId = instance['ImageId']
+        logging.info("Image ID is {}".format(ImgId))
+
+    return ImgId
+
+
+def start_avh(profile, key, region, initfile):
+    global InstType
+
+    print("Starting AVH instance...")
+
+    [n, arr, ImgId] = status_avh(profile, region, False)
+
+    if n > 0 :
         print(orange + "One or more AVH instances are already running." + nc)
         confirm = input("Please confirm to launch a new instance [Y/n]: ")
         if confirm != "Y":
             print("Cancelling... No instance will be started.")
             sys.exit(1)
 
-    print("Starting AVH instance...")
-
-    cmd = "aws ec2 run-instances --profile {} --image-id {} --instance-type {} --key-name {} --region {}".format(
+    cmd = "aws ec2 run-instances --profile {} --image-id {} --instance-type {} --key-name {} --region {} --output json".format(
             profile, ImgId, InstType, key, region)
 
     if initfile != None :
@@ -73,9 +94,32 @@ def start_avh(profile, key, region, initfile):
     logging.debug("Command is: {}".format(cmd))
 
     try:
-        out = subprocess.check_output(cmd, shell=True).decode("utf-8")
-    except subprocess.CalledProcessError:
-        logging.error(red + "Running the start command failed." + nc)
+        out = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True).decode("utf-8")
+    except subprocess.CalledProcessError as e:
+        print(e.output)
+        errtype = str(e.output).split(")")[0].split("(")[1]
+        if errtype == "VPCIdNotSpecified":
+            logging.info(orange + "Running the start command failed: default VPC not found. Creating VPC..." + nc)
+
+            cmd_vpc = "aws ec2 create-default-vpc --profile {} --region {}".format(
+	    	profile, region)
+
+            try:
+                out_vpc = subprocess.check_output(cmd_vpc, shell=True).decode("utf-8")
+            except subprocess.CalledProcessError:
+                logging.error(red + "VPC creation failed." + nc)
+                sys.exit(1)
+
+            logging.info("VPC created. Trying to start instance again...")
+
+            try:
+                out = subprocess.check_output(cmd, shell=True).decode("utf-8")
+            except subprocess.CalledProcessError as e:
+                logging.error(red + "Running the start command failed." + nc)
+            sys.exit(1)
+        else:
+            logging.error(red + "Running the start command failed." + nc)
+            sys.exit(1)
 
     outd = json.loads(out)
     for instance in outd['Instances']:
@@ -84,7 +128,8 @@ def start_avh(profile, key, region, initfile):
     return
 
 def status_avh(profile, region, printv):
-    global ImgId
+    # Get ImageID from region
+    ImgId = get_avh_imgid(region)
 
     n_instances = 0
     arr_inst = []
@@ -120,11 +165,11 @@ def status_avh(profile, region, printv):
             else :
                 print("| {}\t| {}\t\t| {}\t|".format(i[0], i[1], i[2]))
 
-    return n_instances, arr_inst
+    return n_instances, arr_inst, ImgId
 
 
 def stop_avh(profile, region):
-    [n, arr] = status_avh(profile, region, False)
+    [n, arr, ImgId] = status_avh(profile, region, False)
 
     if n == 0 :
         logging.error(red + "No AVH instance is running." + nc)
@@ -137,7 +182,7 @@ def stop_avh(profile, region):
             if i[2] == 'running' :
                 print("Running instance ID {} found (public IP {})".format(i[0], i[1]))
 
-        instanceid = input("The instance will be terminated and all data will be lost. Please enter the instance ID to stop it (leave empty to cancel): ")
+        instanceid = input(orange + "The instance will be terminated and all data will be lost. " + nc + "Please enter the instance ID to stop it (leave empty to cancel): ")
 
         if(instanceid == ""):
             print("Cancelling... No instance will be stopped.")
@@ -176,7 +221,7 @@ if __name__ == "__main__":
     # AWS CLI version check
     awscli_version_m = float(awscli_version_f.split(".")[0] + "." + awscli_version_f.split(".")[1])
     if awscli_version_m < 2.2 :
-        logging.warning(red + "AWS CLI version is: {}. Minimum required is 2.2".format(awscli_version_m) + nc)
+        logging.warning(orange + "AWS CLI version is: {}. Minimum required is 2.2".format(awscli_version_m) + nc)
 
     # Profile check
     try:
@@ -195,12 +240,12 @@ if __name__ == "__main__":
     if args.command.lower() == "start" :
         # Key check
         if args.key == None:
-            args.key = "avh_user"
-            if os.path.isfile(os.path.join(os.path.expanduser('~'),'.ssh/avh_user.pem')) == False :
-                logging.info(red + "No key specified and avh_user key not found, creating 'avh_user' key..." + nc)
+            args.key = "avh_user_{}".format(args.region)
+            if os.path.isfile(os.path.join(os.path.expanduser('~'),'.ssh/avh_user_{}.pem'.format(args.region))) == False :
+                logging.info(orange + "No key specified and avh_user_{} key not found, creating 'avh_user_{}' key...".format(args.region, args.region) + nc)
 
-                cmd = "aws ec2 create-key-pair --key-name avh_user --profile {} --region {}".format(
-                            args.profile, args.region)
+                cmd = "aws ec2 create-key-pair --key-name avh_user_{} --profile {} --region {} --output json".format(
+                            args.region, args.profile, args.region)
                 try:
                     out = subprocess.check_output(cmd, shell=True).decode("utf-8")
                 except subprocess.CalledProcessError:
@@ -208,7 +253,7 @@ if __name__ == "__main__":
                     sys.exit(1)
 
                 outd = json.loads(out)
-                key_file = open(os.path.join(os.path.expanduser('~'),'.ssh/avh_user.pem'), 'x')
+                key_file = open(os.path.join(os.path.expanduser('~'),'.ssh/avh_user_{}.pem'.format(args.region)), 'x')
                 try:
                     key_file.write(outd["KeyMaterial"])
                 except:
@@ -219,11 +264,12 @@ if __name__ == "__main__":
 
                 # Set permissions
                 if platform.system() == "Linux" :
-                    os.system('chmod 600 ~/.ssh/avh_user.pem')
+                    os.system('chmod 600 ~/.ssh/avh_user_{}.pem'.format(args.region))
 
-                logging.info(orange + "Key has been saved as {}.ssh".format(os.path.expanduser('~') + os.path.sep) + os.path.sep + "avh_user.pem." + nc)
+                logging.info(orange + "Key has been saved as {}.ssh".format(os.path.expanduser('~') + os.path.sep) 
+		    + os.path.sep + "avh_user_{}.pem.".format(args.region) + nc)
             else:
-                logging.info(orange + "Using 'avh_user' key in {}.ssh ...".format(os.path.expanduser('~') + os.path.sep) + nc)
+                logging.info(orange + "Using 'avh_user_{}' key in {}.ssh ...".format(args.region, os.path.expanduser('~') + os.path.sep) + nc)
 
         start_avh(args.profile, args.key, args.region, args.cloudinit)
 

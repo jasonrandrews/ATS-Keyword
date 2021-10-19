@@ -34,10 +34,16 @@ To utilize the Arm Virtual Hardware, you will need to create an [AWS Account](ht
 #### Launching the instance in EC2 [(AWS on getting started)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
 1. Go to [EC2](https://console.aws.amazon.com/ec2/v2/) in the AWS Web Console.
 1. Select **Launch Instances** which will take you to a wizard for launching the instance.
-  1. **Step 1: Choose an [Amazon Machine Image (AMI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)** - In the Search box, type `Arm Virtual Hardware` then find the item called "Arm Virtual Hardware" that is by Arm, and press Select for that item. This image contains all the software necessary to build and run the Arm IoT Total Solutions.
-  This will raise a subscription page/pop-up titled, **Arm Virtual Hardware**. You will note that the subscription is free from Arm, but AWS does charge for the costs of the instances themselves according to the pricing chart provided. You must select Continue if you want to move forward.
-  1. **Step 2: Choose an Instance Type** - Select one of the instance types from the list. We recommend the **c5.large**. Keep in mind that there are charges that accrue while the instance is running.
-  From here you may select **Review and Launch** to move directly to the launch page or select **Next: Configure Instance Details** if you need to set any custom settings for this instance.
+  
+     1. **Step 1: Choose an [Amazon Machine Image (AMI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)** - In the Search box, type `Arm Virtual Hardware` then find the item called "Arm Virtual Hardware" that is by Arm, and press Select for that item. This image contains all the software necessary to build and run the Arm IoT Total Solutions.
+        This will raise a subscription page/pop-up titled, **Arm Virtual Hardware**. You will note that the subscription is free from Arm, but AWS does charge for the costs of the instances themselves according to the pricing chart provided. 
+  
+        > Arm Virtual Hardware for Corstone-300 is available as a public beta on AWS Marketplace. To help you get started, AWS are offering more than 100 hours of free AWS EC2 CPU credits for the first 1,000 qualified users. Click here to find out more: https://www.arm.com/company/contact-us/virtual-hardware.
+  
+        You must select Continue if you want to move forward.
+     
+     1. **Step 2: Choose an Instance Type** - Select one of the instance types from the list. We recommend the **c5.large**. Keep in mind that there are charges that accrue while the instance is running.
+        From here you may select **Review and Launch** to move directly to the launch page or select **Next: Configure Instance Details** if you need to set any custom settings for this instance.
 
 #### Selecting the instance
 Once you complete the wizard by initiating the instance launch you will see a page that allows you to navigate directly to the new instance. You may click this link or go back to your list of instances and find the instance through that method.
@@ -48,6 +54,42 @@ Whichever way you choose find your new instance and select its instance ID to op
 1. Select **Connect** to open an SSH terminal session to the instance in your browser.
 1. Ensure the User name field is set to `ubuntu`.
 1. Select the **Connect** button to open the session. This will put you in a browser window where you will have an SSH terminal window ready for your input.
+
+### Launch Using a local terminal
+
+1. Install [AWS CLI 2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) on your machine. 
+2. [Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html) the access key, secret key and region that AWS CLI will use. If your organization uses AWS Single Sign-On, the [configuration process](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html) is slightly different. Make sure the region selected matches the region of the SSO service.
+3. Create a new key pair. 
+
+```sh
+aws ec2 create-key-pair --key-name MyKeyPair
+```
+
+4. When AWS CLI display the new key pair. Save the key material in a `.pem` file. The file permission must be set to `400`. 
+
+```sh
+chmod 400 MyKeyPair.pem
+```
+
+5. Launch a new instance with the key pair created. The key pair can be reused to create new instances.
+
+```sh
+./scripts/vht_cli.py -k MyKeyPair start
+```
+
+#### Connecting to the instance:
+
+1. Get the IP of the instance started
+
+```sh
+./scripts/vht_cli.py -k MyKeyPair status
+```
+
+2. Connect to the instance using SSH and the private key saved localy. 
+
+```sh
+ssh -i "MyKeyPair.pem" ubuntu@<instance ip address>
+```
 
 ## Build and execute the application
 
@@ -132,7 +174,7 @@ rm -rf ATS-Keyword
  To utilize the Arm Virtual Hardware, you will need to create an AWS Account if you don’t already have one.
 
 ```sh
-./scripts/avh_cli.py -k <key pair name> start
+./scripts/vht_cli.py -k <key pair name> start
 ```
 
 3. Launch GitHub Self-Hosted Runner
@@ -328,9 +370,10 @@ Integrating a new model means integrating its source code and requires update of
 | Repository                                                                                                    | Description                                                                                                                                                                                                                        |
 |---------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Arm AI Ecosystem Catalog](https://www.arm.com/why-arm/partner-ecosystem/ai-ecosystem-catalog)                | Connects you to the right partners, enabling you to build the next generation of AI solutions                                                                                                                                      |
+| [Arm CMSIS Build](https://arm-software.github.io/CMSIS_5/Build/html/index.html)                               | Documentation for the build system used by applications in this repository.                                                                                                                                                        |
+| [Arm IoT Ecosystem Catalog](https://www.arm.com/why-arm/partner-ecosystem/iot-ecosystem-catalog)              | Explore Arm IoT Ecosystem partners who can help transform an idea into a secure, market-leading device.                                                                                                                            |
 | [Arm ML Model Zoo](https://github.com/ARM-software/ML-zoo)                                                    | A collection of machine learning models optimized for Arm IP.                                                                                                                                                                      |
 | [Arm Virtual Hardware Documentation](https://mdk-packs.github.io/VHT-TFLmicrospeech/overview/html/index.html) | Documentation for [Arm Virtual Hardware](https://www.arm.com/products/development-tools/simulation/virtual-hardware)                                                                                                               |
-| [Arm CMSIS Build](https://arm-software.github.io/CMSIS_5/Build/html/index.html)                               | Documentation for the build system used by applications in this repository.                                                                                                                                                        |
 | [AWS FreeRTOS](https://docs.aws.amazon.com/freertos/)                                                         | Documentation for AWS FreeRTOS.                                                                                                                                                                                                    |
 | [AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)                         | Documentation for AWS IoT.                                                                                                                                                                                                         |
 | [Trusted Firmware-M](https://tf-m-user-guide.trustedfirmware.org/)                                            | Documentation for Trusted Firmware-M                                                                                                                                                                                               |
