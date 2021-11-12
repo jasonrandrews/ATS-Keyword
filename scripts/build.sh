@@ -19,6 +19,7 @@
 
 NAME="$(basename "$0")"
 HERE="$(dirname "$0")"
+ROOT="$(realpath $HERE/..)"
 EXAMPLE=""
 CLEAN=0
 
@@ -62,11 +63,11 @@ function build_with_cbuild {
 
     (
         set -e
-        "$CBUILD" $CBUILD_ARGS "$HERE/tfm.bootloader.cprj"
-        "$CBUILD" $CBUILD_ARGS "$HERE/tfm.secure.cprj"
-        "$CBUILD" $CBUILD_ARGS "$HERE/tfm.${EXAMPLE}_ns.cprj"
-        "$HERE/sign_binaries.sh" $EXAMPLE
-        [[ "$EXAMPLE" = "kws" ]] && "$HERE/sign_update_binaries.sh" || :
+        "$CBUILD" $CBUILD_ARGS "$ROOT/tfm.bootloader.cprj"
+        "$CBUILD" $CBUILD_ARGS "$ROOT/tfm.secure.cprj"
+        "$CBUILD" $CBUILD_ARGS "$ROOT/tfm.${EXAMPLE}_ns.cprj"
+        "$ROOT/scripts/sign_binaries.sh" $EXAMPLE
+        [[ "$EXAMPLE" = "kws" ]] && "$ROOT/scripts/sign_update_binaries.sh" || :
     )
 }
 

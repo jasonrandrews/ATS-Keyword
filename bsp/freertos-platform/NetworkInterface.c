@@ -81,8 +81,7 @@ BaseType_t xNetworkInterfaceInitialise( void )
 
     //smsc9220_read_mac_address(&ETH_DEV, MACaddr);
     read_MACaddr(MACaddr);
-    printf("%x %x %x %x %x %x %x %x ", MACaddr[0], MACaddr[1], MACaddr[2], MACaddr[3],
-                                       MACaddr[4], MACaddr[5], MACaddr[6], MACaddr[7] );
+    printf("%x %x %x %x %x %x", MACaddr[0], MACaddr[1], MACaddr[2], MACaddr[3], MACaddr[4], MACaddr[5]);
     FreeRTOS_UpdateMACAddress((const uint8_t *)MACaddr);
 
     xRXSemaphore = xSemaphoreCreateMutex();
@@ -155,8 +154,6 @@ BaseType_t xNetworkInterfaceOutput( NetworkBufferDescriptor_t * const pxDescript
 static void smsc9220_Receive_task( void *pvParameters )
 {
     FreeRTOS_debug_printf(("smsc9220 ethernet receive task created\r\n"));
-    uint32_t message_length = 0;
-    uint32_t received_bytes = 0;
     NetworkBufferDescriptor_t *pxBufferDescriptor;
     /* Used to indicate that xSendEventStructToIPTask() is being called because
     of an Ethernet receive event. */
@@ -201,7 +198,7 @@ static void smsc9220_Receive_task( void *pvParameters )
             //received_bytes = smsc9220_receive_by_chunks(&ETH_DEV, pxBufferDescriptor->pucEthernetBuffer, message_length);
             //pxBufferDescriptor->xDataLength = received_bytes;
 
-            if (!LAN91_receive_frame(pxBufferDescriptor->pucEthernetBuffer, &pxBufferDescriptor->xDataLength)) {
+            if (!LAN91_receive_frame((uint32_t*)pxBufferDescriptor->pucEthernetBuffer, &pxBufferDescriptor->xDataLength)) {
                 FreeRTOS_debug_printf(("Receive error!\r\n"));
             }
 

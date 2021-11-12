@@ -319,18 +319,6 @@ void ETHERNET_Handler(void);
 /** @brief Check Ethernet controller link status. */
 lan91_phy_status_t LAN91_GetLinkStatus(void);
 
-/** @brief Output a bit value to the MII PHY management interface. */
-static void output_MDO(int bit_value);
-
-/** @brief Input a bit value from the MII PHY management interface. */
-static int  input_MDI(void);
-
-/** @brief Write a data value to PHY register. */
-static void write_PHY(uint32_t PhyReg, int Value);
-
-/** @brief Read a PHY register. */
-static uint16_t read_PHY(uint32_t PhyReg);
-
 
 /*******************************************************************************
  * inline functions

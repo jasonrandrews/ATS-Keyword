@@ -18,6 +18,7 @@
 set -xe 
 
 HERE="$(dirname "$0")"
+ROOT="$(realpath $HERE/..)"
 
-$HERE/../build.sh blinky
-$HERE/../build.sh kws
+$ROOT/ats.sh build blinky
+$ROOT/ats.sh build kws

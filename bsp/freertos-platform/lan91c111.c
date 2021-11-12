@@ -22,6 +22,12 @@
 
 static lan91_handle_t lan91c111_handle;
 
+/** @brief Write a data value to PHY register. */
+static void write_PHY(uint32_t PhyReg, int Value);
+
+/** @brief Read a PHY register. */
+static uint16_t read_PHY(uint32_t PhyReg);
+
 void LAN91_init(void)
 {
 

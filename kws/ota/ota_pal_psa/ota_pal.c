@@ -30,6 +30,8 @@
  *
  */
 
+#include <string.h>
+
 /* OTA PAL Port include. */
 #include "ota_pal.h"
 
@@ -110,7 +112,7 @@ static OtaPalStatus_t CalculatePSAImageID( uint8_t slot,
         return OTA_PAL_COMBINE_ERR( OtaPalRxFileCreateFailed, 0 );
     }
 
-    *pxImageID = FWU_CALCULATE_IMAGE_ID(slot, ulImageType, ( uint16_t )pFileContext);
+    *pxImageID = FWU_CALCULATE_IMAGE_ID(slot, ulImageType, ( uint16_t )( uintptr_t )pFileContext);
 
     return OTA_PAL_COMBINE_ERR( OtaPalSuccess, 0 );
 }
@@ -140,8 +142,6 @@ static OtaPalStatus_t CalculatePSAImageID( uint8_t slot,
  */
 OtaPalStatus_t otaPal_Abort( OtaFileContext_t * const pFileContext )
 {
-    OtaPalStatus_t ota_ret = OTA_PAL_COMBINE_ERR( OtaPalAbortFailed, 0 );
-
     if( (pFileContext == NULL) || ((pFileContext != pxSystemContext ) && ( pxSystemContext != NULL ) ) )
     {
         return OTA_PAL_COMBINE_ERR( OtaPalAbortFailed, 0 );
@@ -207,7 +207,7 @@ OtaPalStatus_t otaPal_CreateFileForRx( OtaFileContext_t * const pFileContext )
 
     pxSystemContext = pFileContext;
     xOTAImageID = ulImageID;
-    pFileContext->pFile = &xOTAImageID;
+    pFileContext->pFile = (uint8_t*)&xOTAImageID;
     return OTA_PAL_COMBINE_ERR( OtaPalSuccess, 0 );
 }
 

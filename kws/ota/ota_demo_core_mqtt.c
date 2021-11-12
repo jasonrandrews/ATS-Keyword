@@ -1883,9 +1883,6 @@ static BaseType_t prvRunOTADemo( void )
     /* OTA interface context required for library interface functions.*/
     OtaInterfaces_t xOtaInterfaces;
 
-    /* OTA library packet statistics per job.*/
-    OtaAgentStatistics_t xOtaStatistics = { 0 };
-
     /* OTA Agent state returned from calling OTA_GetState.*/
     OtaState_t xOtaState = OtaAgentStateStopped;
 

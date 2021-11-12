@@ -19,8 +19,10 @@
 
 NAME="$(basename "$0")"
 HERE="$(dirname "$0")"
+ROOT="$(realpath $HERE/..)"
 EXAMPLE=""
 CLEAN=0
+export GIT_SSL_NO_VERIFY=1
 
 function sync_submodules {
     echo "Syncronising submodules" >&2
@@ -29,7 +31,7 @@ function sync_submodules {
 
 function setup_ml_eval_kit {
     echo " * Downloading dependencies" >&2
-    ML_KIT="$HERE/lib/ml-embedded-evaluation-kit"
+    local ML_KIT="$ROOT/lib/ml-embedded-evaluation-kit"
 
     if [[ ! -e "$ML_KIT/.setup_complete" ]]; then 
         # Setup venv
@@ -54,7 +56,7 @@ function setup_ml_eval_kit {
         mv ruy-4790797d11a81f96baf24f3731fd3ca44c2c5f8b ruy
         rm ruy.zip
 
-        popd 
+        popd >/dev/null
 
         # Generate models and labels 
         ML_GEN_SRC="generated/kws/src"
@@ -77,7 +79,7 @@ function setup_ml_eval_kit {
 }
 
 function apply_patches {
-    local record="$HERE/patches/.patches-applied"
+    local record="$ROOT/patches/.patches-applied"
     touch "$record"
     while read patch; do
         local name="$(basename "$patch")"

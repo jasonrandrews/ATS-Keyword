@@ -15,6 +15,7 @@
  */
 
 #include "FreeRTOS.h"
+#include "stdio.h"
 #include "task.h"
 
 void vApplicationStackOverflowHook( TaskHandle_t xTask, char * pcTaskName )

@@ -217,6 +217,9 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 #define democonfigNETWORK_TYPES     ( AWSIOT_NETWORK_TYPE_ETH )
 #define democonfigDEMO_PRIORITY     ( configMAX_PRIORITIES-2 )
-#define democonfigDEMO_STACKSIZE    ( configMINIMAL_STACK_SIZE*2 )
+
+#ifndef democonfigDEMO_STACKSIZE
+# define democonfigDEMO_STACKSIZE    ( configMINIMAL_STACK_SIZE*8 )
+#endif
 
 #endif /* FREERTOS_CONFIG_H */

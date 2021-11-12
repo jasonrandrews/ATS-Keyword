@@ -54,40 +54,6 @@ struct Buffer
     size_t alloc;
 };
 
-static RetType write_to_buffer(void *cookie, const char *data, LenType len)
-{
-    struct Buffer *b = (struct Buffer *)cookie;
-    char *ptr = *b->ptr;
-    size_t newsize;
-
-    errno = EFBIG;
-    if (unlikely(add_check_overflow(*b->len, len, &newsize)))
-        return -1;
-
-    if (newsize >= b->alloc) { // NB! one extra byte is needed to avoid buffer overflow at close_buffer
-        // make room
-        size_t newalloc = newsize + newsize / 2 + 1;    // give 50% more room
-        ptr = realloc(ptr, newalloc);
-        if (ptr == NULL)
-            return -1;
-        b->alloc = newalloc;
-        *b->ptr = ptr;
-    }
-
-    memcpy(ptr + *b->len, data, len);
-    *b->len = newsize;
-    return len;
-}
-
-static int close_buffer(void *cookie)
-{
-    struct Buffer *b = (struct Buffer *)cookie;
-    if (*b->ptr)
-        (*b->ptr)[*b->len] = '\0';
-    free(b);
-    return 0;
-}
-
 FILE *open_memstream(char **bufptr, size_t *lenptr)
 {
     struct Buffer *b = (struct Buffer *)malloc(sizeof(struct Buffer));
@@ -109,6 +75,8 @@ FILE *open_memstream(char **bufptr, size_t *lenptr)
         close_buffer
     };
     return fopencookie(b, "w", vtable);
+#else
+    return NULL;
 #endif
 }
 

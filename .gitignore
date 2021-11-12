@@ -17,6 +17,7 @@ cmake_build*/
 *.pyc
 Objects/
 RTE/
+downloads
 
 # TF-Fuzz build artifacts
 *.o

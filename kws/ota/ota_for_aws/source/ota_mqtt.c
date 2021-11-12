@@ -65,6 +65,10 @@
 /* NOTE: The format specifiers in this string are placeholders only; the lengths of these
  * strings are used to calculate buffer sizes.
  */
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunneeded-internal-declaration"
+
 static const char pOtaJobsGetNextTopicTemplate[] = MQTT_API_THINGS "%s"MQTT_API_JOBS_NEXT_GET;                 /*!< Topic template to request next job. */
 static const char pOtaJobsNotifyNextTopicTemplate[] = MQTT_API_THINGS "%s"MQTT_API_JOBS_NOTIFY_NEXT;           /*!< Topic template to notify next . */
 static const char pOtaJobStatusTopicTemplate[] = MQTT_API_THINGS "%s"MQTT_API_JOBS "%s"MQTT_API_UPDATE;        /*!< Topic template to update the current job. */
@@ -73,6 +77,8 @@ static const char pOtaGetStreamTopicTemplate[] = MQTT_API_THINGS "%s"MQTT_API_ST
 
 static const char pOtaGetNextJobMsgTemplate[] = "{\"clientToken\":\"%u:%s\"}";                                 /*!< Used to specify client token id to authenticate job. */
 static const char pOtaStringReceive[] = "\"receive\"";                                                         /*!< Used to build the job receive template. */
+
+#pragma GCC diagnostic pop
 
 /** We map all of the above status cases to one of these status strings.
  * These are the only strings that are supported by the Job Service. You

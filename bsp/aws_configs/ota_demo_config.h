@@ -72,6 +72,7 @@
  * bytes are read from network interface. Keeping this timeout to a sufficiently
  * large value so as to account for delay of receipt of a large block of message.
  */
+#undef MQTT_RECV_POLLING_TIMEOUT_MS /* Override the one from "core_mqtt_config_defaults.h" */
 #define MQTT_RECV_POLLING_TIMEOUT_MS            ( 1000U ) /* TODO Set a timeout in msecs for data received from MQTT. Recommend values > 1 s. */
 
 /**
@@ -92,6 +93,7 @@
  * responsiveness of MQTT agent while processing  pending MQTT operations as
  * well as receive packets from network.
  */
+#undef MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME /* Override the one from "core_mqtt_config_defaults.h" */
 #define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 1U ) /* TODO */
 
 #endif /* OTA_DEMO_CONFIG_H_ */

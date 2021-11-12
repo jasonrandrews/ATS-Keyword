@@ -29,7 +29,7 @@ import platform
 # Arm Virtual Hardware AMI version
 avh_version="1.0.0"
 
-InstType="t3a.medium"
+InstType="c5.large"
 
 # Set verbosity level
 verbosity = logging.INFO

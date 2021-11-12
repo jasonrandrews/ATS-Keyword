@@ -10,6 +10,7 @@
       <TargetName>kws_ns</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -52,8 +53,8 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
-          <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <DebugInformation>0</DebugInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\build\kws\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -158,11 +159,11 @@
             <ldmm>1</ldmm>
             <ldXref>1</ldXref>
             <BigEnd>0</BigEnd>
-            <AdsALst>1</AdsALst>
+            <AdsALst>0</AdsALst>
             <AdsACrf>1</AdsACrf>
             <AdsANop>0</AdsANop>
             <AdsANot>0</AdsANot>
-            <AdsLLst>1</AdsLLst>
+            <AdsLLst>0</AdsLLst>
             <AdsLmap>1</AdsLmap>
             <AdsLcgr>1</AdsLcgr>
             <AdsLsym>1</AdsLsym>
@@ -312,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>5</Optim>
+            <Optim>3</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -321,7 +322,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>2</wLevel>
+            <wLevel>1</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
@@ -1936,7 +1937,7 @@
                 <uGnu>2</uGnu>
                 <useXO>2</useXO>
                 <v6Lang>8</v6Lang>
-                <v6LangP>0</v6LangP>
+                <v6LangP>8</v6LangP>
                 <vShortEn>2</vShortEn>
                 <vShortWch>2</vShortWch>
                 <v6Lto>2</v6Lto>
@@ -2035,7 +2036,7 @@
                   <MiscControls>--target=arm-arm-none-eabi -mcpu=cortex-m55+fp+mve -mfloat-abi=hard -march=armv8.1-m.main -Wno-ignored-optimization-argument -Wno-unused-command-line-argument -Wall -Wno-error=cpp -c -fdata-sections -fno-builtin -masm=auto -nostdlib</MiscControls>
                   <Define>BL2 MCUBOOT_DATA_SHARING=1 TFM_SYSTEM_FP=2 TFM_SYSTEM_FP_NS=2 TFM_PARTITION_FIRMWARE_UPDATE CONFIG_KWS_SCORE_THRESHOLD=0.8 ACTIVATION_BUF_SRAM_SZ=0x00400000 ACTIVATION_BUF_SZ=0x00400000 TFM_SPM_LOG_LEVEL=0 DAUTH_CHIP_DEFAULT MCUBOOT_IMAGE_NUMBER=2 MCUBOOT_SIGN_RSA MCUBOOT_SIGN_RSA_LEN=2048 TFM_PARTITION_AUDIT_LOG TFM_PARTITION_CRYPTO TFM_PARTITION_INITIAL_ATTESTATION TFM_PARTITION_INTERNAL_TRUSTED_STORAGE TFM_PARTITION_LOG_LEVEL=TFM_PARTITION_LOG_LEVEL_DEBUG TFM_PARTITION_PLATFORM TFM_PARTITION_PROTECTED_STORAGE ARM_NPU=1 MPS3_PLATFORM=1 ARM_MATH_DSP ARM_MATH_LOOPUNROLL CPU_CORTEX_M55=1 ARM_MATH_MVEI PLATFORM_HAL=1</Define>
                   <Undefine></Undefine>
-                  <IncludePath>./lib/amazon_freertos/libraries/abstractions/pkcs11/corePKCS11/source/dependency/3rdparty/pkcs11;./lib/amazon_freertos/libraries/abstractions/pkcs11/corePKCS11/source/include;./lib/amazon_freertos/demos/dev_mode_key_provisioning/include;./lib/amazon_freertos/libraries/logging/include;./lib/amazon_freertos/libraries/c_sdk/standard/common/include/private;./lib/amazon_freertos/libraries/abstractions/secure_sockets/include;./lib/amazon_freertos/libraries/c_sdk/standard/common/include;./lib/amazon_freertos/libraries/abstractions/platform/include/types;./lib/amazon_freertos/libraries/abstractions/platform/include;./lib/amazon_freertos/libraries/abstractions/platform/freertos/include/platform;./lib/amazon_freertos/libraries/abstractions/platform/freertos/include;./lib/amazon_freertos/libraries/c_sdk/standard/mqtt/include;./lib/amazon_freertos/libraries/freertos_plus/standard/freertos_plus_tcp/portable/Compiler/Keil;./lib/amazon_freertos/libraries/freertos_plus/standard/freertos_plus_tcp/include;./bsp/freertos-platform;./bsp/aws_configs;./lib/amazon_freertos/freertos_kernel/include;./lib/ml-embedded-evaluation-kit/dependencies/core-driver/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/bsp-packs/mps3/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/native/utils/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/flatbuffers/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/native/timer/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro;./lib/ml-embedded-evaluation-kit/generated/kws/include;./lib/ml-embedded-evaluation-kit/source/application/hal/include;./lib/ml-embedded-evaluation-kit/source/application/main/include;./lib/ml-embedded-evaluation-kit/source/use_case/kws/include;./lib/ml-embedded-evaluation-kit/source/application/tensorflow-lite-micro/include;./kws/include;./lib/amazon_freertos/freertos_kernel/include;./lib/amazon_freertos/freertos_kernel/portable/GCC/ARM_CM33_NTZ/non_secure;./lib/tfm_test/ns_interface;./lib/tf-m/platform/ext/target/arm/mps3/an547;./lib/tf-m/platform/ext/target/arm/mps3/common;./lib/tf-m;./lib/tf-m/platform/ext/target/arm/mps3/an547/cmsis_drivers;./lib/tf-m/platform/ext/target/arm/mps3/an547/cmsis_drivers/config;./lib/tf-m/platform/ext/target/arm/mps3/an547/device;./lib/tf-m/platform/ext/target/arm/mps3/an547/device/config;./lib/tf-m/platform/ext/target/arm/mps3/an547/device/include;./lib/tf-m/platform/ext/target/arm/mps3/an547/device/source/armclang;./lib/tf-m/platform/ext/target/arm/mps3/an547/native_drivers;./lib/tf-m/platform/ext/target/arm/mps3/an547/partition;./lib/tf-m/platform/ext/target/arm/mps3/an547/services/src;./lib/tf-m/platform/ext;./lib/tf-m/platform/ext/common;./lib/tf-m/platform/ext/driver;./lib/tf-m/platform/include;./lib/tf-m/platform/ext/cmsis;./lib/tf-m/interface/include;./bsp/interface/include;./lib/tf-m/platform/ext/target/arm/mps3/an547/services/include;./lib/mcuboot/boot/bootutil/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/bsp-core/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/bsp-packs/mps3/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/timer/include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/DSP/Include;./bsp;./lib/VHT/interface/include;./lib/VHT/interface/audio/include;./lib/tf-m;./kws/ota/ota_pal_psa;./kws/ota/ota_for_aws/source/include</IncludePath>
+                  <IncludePath>./kws/ota/provision;./lib/amazon_freertos/libraries/abstractions/pkcs11/corePKCS11/source/dependency/3rdparty/pkcs11;./lib/amazon_freertos/libraries/abstractions/pkcs11/corePKCS11/source/include;./lib/amazon_freertos/demos/dev_mode_key_provisioning/include;./lib/amazon_freertos/libraries/logging/include;./lib/amazon_freertos/libraries/c_sdk/standard/common/include/private;./lib/amazon_freertos/libraries/abstractions/secure_sockets/include;./lib/amazon_freertos/libraries/c_sdk/standard/common/include;./lib/amazon_freertos/libraries/abstractions/platform/include/types;./lib/amazon_freertos/libraries/abstractions/platform/include;./lib/amazon_freertos/libraries/abstractions/platform/freertos/include/platform;./lib/amazon_freertos/libraries/abstractions/platform/freertos/include;./lib/amazon_freertos/libraries/c_sdk/standard/mqtt/include;./lib/amazon_freertos/libraries/freertos_plus/standard/freertos_plus_tcp/portable/Compiler/Keil;./lib/amazon_freertos/libraries/freertos_plus/standard/freertos_plus_tcp/include;./bsp/freertos-platform;./bsp/aws_configs;./lib/amazon_freertos/freertos_kernel/include;./lib/ml-embedded-evaluation-kit/dependencies/core-driver/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/bsp-packs/mps3/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/native/utils/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/flatbuffers/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/native/timer/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro;./lib/ml-embedded-evaluation-kit/generated/kws/include;./lib/ml-embedded-evaluation-kit/source/application/hal/include;./lib/ml-embedded-evaluation-kit/source/application/main/include;./lib/ml-embedded-evaluation-kit/source/use_case/kws/include;./lib/ml-embedded-evaluation-kit/source/application/tensorflow-lite-micro/include;./kws/include;./lib/amazon_freertos/freertos_kernel/include;./lib/amazon_freertos/freertos_kernel/portable/GCC/ARM_CM33_NTZ/non_secure;./lib/tfm_test/ns_interface;./lib/tf-m/platform/ext/target/arm/mps3/an547;./lib/tf-m/platform/ext/target/arm/mps3/common;./lib/tf-m;./lib/tf-m/platform/ext/target/arm/mps3/an547/cmsis_drivers;./lib/tf-m/platform/ext/target/arm/mps3/an547/cmsis_drivers/config;./lib/tf-m/platform/ext/target/arm/mps3/an547/device;./lib/tf-m/platform/ext/target/arm/mps3/an547/device/config;./lib/tf-m/platform/ext/target/arm/mps3/an547/device/include;./lib/tf-m/platform/ext/target/arm/mps3/an547/device/source/armclang;./lib/tf-m/platform/ext/target/arm/mps3/an547/native_drivers;./lib/tf-m/platform/ext/target/arm/mps3/an547/partition;./lib/tf-m/platform/ext/target/arm/mps3/an547/services/src;./lib/tf-m/platform/ext;./lib/tf-m/platform/ext/common;./lib/tf-m/platform/ext/driver;./lib/tf-m/platform/include;./lib/tf-m/platform/ext/cmsis;./lib/tf-m/interface/include;./bsp/interface/include;./lib/tf-m/platform/ext/target/arm/mps3/an547/services/include;./lib/mcuboot/boot/bootutil/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/bsp-core/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/bsp/bsp-packs/mps3/include;./lib/ml-embedded-evaluation-kit/source/application/hal/platforms/bare-metal/timer/include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/DSP/Include;./bsp;./lib/VHT/interface/include;./lib/VHT/interface/audio/include;./lib/tf-m;./kws/ota/ota_pal_psa;./kws/ota/ota_for_aws/source/include</IncludePath>
                 </VariousControls>
               </Cads>
               <Aads>
@@ -3171,15 +3172,15 @@
                 <uC99>2</uC99>
                 <uGnu>2</uGnu>
                 <useXO>2</useXO>
-                <v6Lang>8</v6Lang>
-                <v6LangP>0</v6LangP>
+                <v6Lang>0</v6Lang>
+                <v6LangP>7</v6LangP>
                 <vShortEn>2</vShortEn>
                 <vShortWch>2</vShortWch>
                 <v6Lto>2</v6Lto>
                 <v6WtE>1</v6WtE>
                 <v6Rtti>0</v6Rtti>
                 <VariousControls>
-                  <MiscControls>-fno-exceptions -fno-threadsafe-statics -fno-unwind-tables -fdata-sections -fmessage-length=0 -Wsign-compare -Wdouble-promotion -Wshadow -Wunused-variable -Wmissing-field-initializers -Wunused-function -Wswitch -Wvla -Wall -Wextra -Wstrict-aliasing -Wno-unused-parameter --target=arm-arm-none-eabi -mthumb -mlittle-endian -Wno-type-limits -Wno-unused-private-field -fomit-frame-pointer -MD --target=arm-arm-none-eabi -mcpu=cortex-m55+fp+mve -mfloat-abi=hard</MiscControls>
+                  <MiscControls>-fno-exceptions -fno-threadsafe-statics -fno-unwind-tables -fdata-sections -fmessage-length=0 -Wsign-compare -Wdouble-promotion -Wshadow -Wunused-variable -Wmissing-field-initializers -Wunused-function -Wswitch -Wvla -Wall -Wextra -Wstrict-aliasing -Wno-unused-parameter --target=arm-arm-none-eabi -mthumb -mlittle-endian -Wno-type-limits -Wno-unused-private-field -fomit-frame-pointer -MD --target=arm-arm-none-eabi -mcpu=cortex-m55+fp+mve -mfloat-abi=hard -Wno-deprecated</MiscControls>
                   <Define>BL2 MCUBOOT_DATA_SHARING=1 TFM_SYSTEM_FP=2 TFM_SYSTEM_FP_NS=2 TFM_PARTITION_FIRMWARE_UPDATE CONFIG_KWS_SCORE_THRESHOLD=0.8 ACTIVATION_BUF_SRAM_SZ=0x00400000 ACTIVATION_BUF_SZ=0x00400000 TFM_SPM_LOG_LEVEL=0 DAUTH_CHIP_DEFAULT MCUBOOT_IMAGE_NUMBER=2 MCUBOOT_SIGN_RSA MCUBOOT_SIGN_RSA_LEN=2048 TFM_PARTITION_AUDIT_LOG TFM_PARTITION_CRYPTO TFM_PARTITION_INITIAL_ATTESTATION TFM_PARTITION_INTERNAL_TRUSTED_STORAGE TFM_PARTITION_LOG_LEVEL=TFM_PARTITION_LOG_LEVEL_DEBUG TFM_PARTITION_PLATFORM TFM_PARTITION_PROTECTED_STORAGE MPS3_PLATFORM=1 ARM_MATH_DSP ARM_MATH_LOOPUNROLL ARM_MATH_MVEI ARM_MATH_LOOPUNROLL TF_LITE_STATIC_MEMORY ARM_NPU=1 TF_LITE_DISABLE_X86_NEON CPU_CORTEX_M55=1 __DSP_PRESENT=1 __FPU_PRESENT=1 CORTEX_M_ETHOS_EVAL CMSIS_NN ETHOS_U NDEBUG TF_LITE_STRIP_ERROR_STRINGS=1 TF_LITE_MCU_DEBUG_LOG</Define>
                   <Undefine></Undefine>
                   <IncludePath>.;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/gemmlowp;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/flatbuffers/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/ruy;./lib/ml-embedded-evaluation-kit/dependencies/cmsis;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/Core/Include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/DSP/Include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/NN/Include;./lib/ml-embedded-evaluation-kit/dependencies/core-driver/include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/Core/Include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/kissfft;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow;./lib/tf-m</IncludePath>
@@ -3305,6 +3306,57 @@
               <FileName>quantization_util.cc</FileName>
               <FileType>8</FileType>
               <FilePath>.\lib\ml-embedded-evaluation-kit\dependencies\tensorflow\tensorflow\lite\kernels\internal\quantization_util.cc</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>1</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>8</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>kernel_util.cc</FileName>
@@ -3340,7 +3392,7 @@
             <GroupArmAds>
               <Cads>
                 <interw>2</interw>
-                <Optim>0</Optim>
+                <Optim>3</Optim>
                 <oTime>2</oTime>
                 <SplitLS>2</SplitLS>
                 <OneElfS>1</OneElfS>
@@ -3349,21 +3401,21 @@
                 <PlainCh>0</PlainCh>
                 <Ropi>2</Ropi>
                 <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
+                <wLevel>1</wLevel>
                 <uThumb>2</uThumb>
                 <uSurpInc>2</uSurpInc>
                 <uC99>2</uC99>
                 <uGnu>2</uGnu>
                 <useXO>2</useXO>
                 <v6Lang>8</v6Lang>
-                <v6LangP>0</v6LangP>
+                <v6LangP>8</v6LangP>
                 <vShortEn>2</vShortEn>
                 <vShortWch>2</vShortWch>
                 <v6Lto>2</v6Lto>
                 <v6WtE>1</v6WtE>
                 <v6Rtti>0</v6Rtti>
                 <VariousControls>
-                  <MiscControls>--target=arm-arm-none-eabi -mcpu=cortex-m55+fp+mve -mfloat-abi=hard -fno-exceptions -fno-threadsafe-statics -fno-unwind-tables -fdata-sections -fmessage-length=0 -Wsign-compare -Wdouble-promotion -Wshadow -Wunused-variable -Wmissing-field-initializers -Wunused-function -Wswitch -Wvla -Wall -Wextra -Wstrict-aliasing -Wno-unused-parameter --target=arm-arm-none-eabi -mthumb -mlittle-endian -Wno-type-limits -Wno-unused-private-field -fomit-frame-pointer -MD</MiscControls>
+                  <MiscControls>--target=arm-arm-none-eabi -mcpu=cortex-m55+fp+mve -mfloat-abi=hard -fno-exceptions -fno-threadsafe-statics -fno-unwind-tables -fdata-sections -fmessage-length=0 -Wsign-compare -Wdouble-promotion -Wshadow -Wunused-variable -Wmissing-field-initializers -Wunused-function -Wswitch -Wvla -Wall -Wextra -Wstrict-aliasing -Wno-unused-parameter --target=arm-arm-none-eabi -mthumb -mlittle-endian -Wno-type-limits -Wno-unused-private-field -fomit-frame-pointer -MD -Wno-deprecated</MiscControls>
                   <Define>BL2 MCUBOOT_DATA_SHARING=1 TFM_SYSTEM_FP=2 TFM_SYSTEM_FP_NS=2 TFM_PARTITION_FIRMWARE_UPDATE CONFIG_KWS_SCORE_THRESHOLD=0.8 ACTIVATION_BUF_SRAM_SZ=0x00400000 ACTIVATION_BUF_SZ=0x00400000 TFM_SPM_LOG_LEVEL=0 DAUTH_CHIP_DEFAULT MCUBOOT_IMAGE_NUMBER=2 MCUBOOT_SIGN_RSA MCUBOOT_SIGN_RSA_LEN=2048 TFM_PARTITION_AUDIT_LOG TFM_PARTITION_CRYPTO TFM_PARTITION_INITIAL_ATTESTATION TFM_PARTITION_INTERNAL_TRUSTED_STORAGE TFM_PARTITION_LOG_LEVEL=TFM_PARTITION_LOG_LEVEL_DEBUG TFM_PARTITION_PLATFORM TFM_PARTITION_PROTECTED_STORAGE ARM_NPU=1 MPS3_PLATFORM=1 ARM_MATH_DSP ARM_MATH_LOOPUNROLL CPU_CORTEX_M55=1 ARM_MATH_MVEI ARM_MATH_LOOPUNROLL=1 TF_LITE_STATIC_MEMORY TF_LITE_DISABLE_X86_NEON CORTEX_M_ETHOS_EVAL CMSIS_NN ETHOS_U NDEBUG TF_LITE_STRIP_ERROR_STRINGS TF_LITE_MCU_DEBUG_LOG __DSP_PRESENT=1 __FPU_PRESENT=1</Define>
                   <Undefine></Undefine>
                   <IncludePath>./lib/tf-m;.;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/gemmlowp;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/flatbuffers/include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/ruy;./lib/ml-embedded-evaluation-kit/dependencies/cmsis;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/Core/Include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/DSP/Include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/NN/Include;./lib/ml-embedded-evaluation-kit/dependencies/core-driver/include;./lib/ml-embedded-evaluation-kit/dependencies/cmsis/CMSIS/Core/Include;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow/tensorflow/lite/micro/tools/make/downloads/kissfft;./lib/ml-embedded-evaluation-kit/dependencies/tensorflow</IncludePath>
@@ -3524,6 +3576,57 @@
               <FileName>l2norm.cc</FileName>
               <FileType>8</FileType>
               <FilePath>.\lib\ml-embedded-evaluation-kit\dependencies\tensorflow\tensorflow\lite\micro\kernels\l2norm.cc</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>1</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>1</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>0</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>5</v6Lang>
+                    <v6LangP>8</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>0</v6Lto>
+                    <v6WtE>0</v6WtE>
+                    <v6Rtti>0</v6Rtti>
+                    <VariousControls>
+                      <MiscControls>-v</MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>logical.cc</FileName>
@@ -3614,6 +3717,57 @@
               <FileName>softmax_common.cc</FileName>
               <FileType>8</FileType>
               <FilePath>.\lib\ml-embedded-evaluation-kit\dependencies\tensorflow\tensorflow\lite\micro\kernels\softmax_common.cc</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>1</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>space_to_batch_nd.cc</FileName>

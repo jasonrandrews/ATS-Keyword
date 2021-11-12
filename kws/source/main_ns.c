@@ -38,6 +38,7 @@
 #include "iot_network_freertos.h"
 #include "iot_logging_task.h"
 #include "aws_dev_mode_key_provisioning.h"
+#include "ota_provision.h"
 #include "psa/update.h"
 #include "version/application_version.h"
 

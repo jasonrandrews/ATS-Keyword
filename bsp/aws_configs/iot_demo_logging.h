@@ -40,8 +40,10 @@
  * - IOT_LOG_NONE if neither IOT_LOG_LEVEL_DEMO nor IOT_LOG_LEVEL_GLOBAL are defined.
  */
 #ifdef IOT_LOG_LEVEL_DEMO
+    #undef LIBRARY_LOG_LEVEL
     #define LIBRARY_LOG_LEVEL        IOT_LOG_LEVEL_DEMO
 #else
+    #undef LIBRARY_LOG_LEVEL
     #ifdef IOT_LOG_LEVEL_GLOBAL
         #define LIBRARY_LOG_LEVEL    IOT_LOG_LEVEL_GLOBAL
     #else

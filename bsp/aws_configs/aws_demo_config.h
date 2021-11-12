@@ -24,8 +24,9 @@
  */
 
 /* Default configuration for all demos. Individual demos can override these below */
-#define democonfigDEMO_STACKSIZE    ( configMINIMAL_STACK_SIZE * 8 )
-
+#ifndef democonfigDEMO_STACKSIZE
+# define democonfigDEMO_STACKSIZE    ( configMINIMAL_STACK_SIZE * 8 )
+#endif
 
 #define democonfigNETWORK_TYPES     ( AWSIOT_NETWORK_TYPE_ETH )
 

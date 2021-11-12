@@ -15,6 +15,7 @@
  */
 
 #include "stdio.h"
+#include <string.h>
 #include "serial.h"
 #include "print_log.h"
 

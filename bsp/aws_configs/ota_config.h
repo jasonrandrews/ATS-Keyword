@@ -48,7 +48,6 @@
 #ifndef LIBRARY_LOG_LEVEL
     #define LIBRARY_LOG_LEVEL    LOG_DEBUG
 #endif
-#define LIBRARY_LOG_LEVEL    LOG_DEBUG
 #include "logging_stack.h"
 
 /************ End of logging configuration ****************/

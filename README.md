@@ -8,13 +8,13 @@ This repo contains Arm's first [IoT Total Solution](https://www.arm.com/solution
 
 The software supports multiple configurations of the Arm Corstone™-300 subsystem, incorporating the Cortex-M55 processor and Arm Ethos™-U55 microNPU.  This total solution provides the complex, non differentiated secure platform software on behalf of the ecosystem, thus enabling you to focus on your next killer app.  
 
-This repo also supports a GitHub runner CI/CD workflow right out of the box which leverages [Arm Virtual Hardware](https://www.arm.com/virtual-hardware), a simulation environment that enables software development without the need of physical SoCs.  The source code in this repo supports several configurations of the software, all of which are AWS IoT Core (OTA, etc.) enabled right out of the box. Instructions for using non-default configurations are coming soon!
+This repo also supports a GitHub runner CI/CD workflow right out of the box which leverages [Arm Virtual Hardware](https://www.arm.com/virtual-hardware), a simulation environment that enables software development without the need of physical SoCs. 
 
 ## Keyword detection application  
 
 The keyword detection application runs the DS-CNN model on top of [AWS FreeRTOS](https://docs.aws.amazon.com/freertos/). It detects keywords and inform the user of which keyword has been spotted. The audio data to process are injected at run time using the [Arm Virtual Hardware](https://www.arm.com/virtual-hardware) audio driver. 
 
-The Keyword application connects to [AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html) cloud to publish recognised keywords. AWS IoT cloud is also used for OTA firmware updates. These firmware updates are securely applied using [Trusted Firmware-M](https://tf-m-user-guide.trustedfirmware.org/). 
+The Keyword application connects to [AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html) cloud to publish recognised keywords. AWS IoT cloud is also used for OTA firmware updates. These firmware updates are securely applied using [Trusted Firmware-M](https://tf-m-user-guide.trustedfirmware.org/). For more information, refer to the keyword detection [Readme](./kws/README.md).
 
 ![Key word detection architecture overview](./resources/Keyword-detection-overview.png)
 
@@ -111,7 +111,7 @@ git clone https://github.com/ARM-software/ATS-Keyword && cd ATS-Keyword
 Synchronize git submodules, setup ML and apply required patches:
 
 ```sh
-./bootstrap.sh
+./ats.sh bootstrap
 ```
 
 Install additional python dependencies required to run tests and sign binaries:
@@ -123,12 +123,12 @@ pip3 install click imgtool pytest
 Build the kws application:
 
 ```sh
-./build.sh kws
+./ats.sh build kws
 ```
 
 Run the kws application:
 ```sh
-./run.sh kws
+./ats.sh run kws
 ```
 
 Launch the kws integration tests:
@@ -174,7 +174,7 @@ rm -rf ATS-Keyword
  To utilize the Arm Virtual Hardware, you will need to create an AWS Account if you don’t already have one.
 
 ```sh
-./scripts/vht_cli.py -k <key pair name> start
+./scripts/vht_cli.py -k <key pair> start
 ```
 
 3. Launch GitHub Self-Hosted Runner
@@ -308,6 +308,19 @@ Upon completion of the build and sign process the signature string will be echoe
 17. Click next
 18. Click next, your update job is ready and running - next time your application connects it will perform the update.
 
+# Terminating AMI Instance at the end of the day
+
+## Stopping the instance in EC2 [(AWS on getting started)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
+1. Go to [EC2](https://console.aws.amazon.com/ec2/v2/) in the AWS Web Console.
+2. Select the instance to stop.
+3. Click on `Instance state` and select `Stop Instance` in the drop down menu.
+  
+## Stopping the instance using a local terminal
+
+```sh
+./scripts/vht_cli.py -k MyKeyPair stop
+```
+
 # Source code overview
 
 - `bsp`: Arm Corstone™-300 subsystem platform code and AWS configurations. 
@@ -354,6 +367,12 @@ Pre-integrated source code is available from the `ML Embedded Eval Kit` and can 
 
 Integrating a new model means integrating its source code and requires update of the build files.
 
+# ML Embedded Eval Kit
+
+The Arm ML Embedded Evaluation Kit , is an open-source repository enabling users to quickly build and deploy embedded machine learning applications for Arm Cortex-M55 CPU and Arm Ethos-U55 NPU.  
+
+With ML Eval Kit you can run inferences on either a custom neural network on Ethos-U microNPU or using availble ML applications such as [Image classification](https://review.mlplatform.org/plugins/gitiles/ml/ethos-u/ml-embedded-evaluation-kit/+/c930ad9dc189d831ac77f716df288f70178d4c10/docs/use_cases/img_class.md), [Keyword spotting (KWS)](https://review.mlplatform.org/plugins/gitiles/ml/ethos-u/ml-embedded-evaluation-kit/+/c930ad9dc189d831ac77f716df288f70178d4c10/docs/use_cases/kws.md), [Automated Speech Recognition (ASR)](https://review.mlplatform.org/plugins/gitiles/ml/ethos-u/ml-embedded-evaluation-kit/+/c930ad9dc189d831ac77f716df288f70178d4c10/docs/use_cases/asr.md), [Anomaly Detection](https://review.mlplatform.org/plugins/gitiles/ml/ethos-u/ml-embedded-evaluation-kit/+/c930ad9dc189d831ac77f716df288f70178d4c10/docs/use_cases/ad.md), and [Person Detection](https://review.mlplatform.org/plugins/gitiles/ml/ethos-u/ml-embedded-evaluation-kit/+/HEAD/docs/use_cases/visual_wake_word.md) all using Arm Fixed Virtual Platform (FVP) available in Arm Virtual Hardware.  
+
 # Known limitations
 
 - Arm compiler 6 is the only compiler supported. 
@@ -374,9 +393,15 @@ Integrating a new model means integrating its source code and requires update of
 | [Arm IoT Ecosystem Catalog](https://www.arm.com/why-arm/partner-ecosystem/iot-ecosystem-catalog)              | Explore Arm IoT Ecosystem partners who can help transform an idea into a secure, market-leading device.                                                                                                                            |
 | [Arm ML Model Zoo](https://github.com/ARM-software/ML-zoo)                                                    | A collection of machine learning models optimized for Arm IP.                                                                                                                                                                      |
 | [Arm Virtual Hardware Documentation](https://mdk-packs.github.io/VHT-TFLmicrospeech/overview/html/index.html) | Documentation for [Arm Virtual Hardware](https://www.arm.com/products/development-tools/simulation/virtual-hardware)                                                                                                               |
-| [AWS FreeRTOS](https://docs.aws.amazon.com/freertos/)                                                         | Documentation for AWS FreeRTOS.                                                                                                                                                                                                    |
+| [Arm Virtual Hardware source code](https://github.com/ARM-software/VHT)                                       | Source code of[Arm Virtual Hardware](https://www.arm.com/products/development-tools/simulation/virtual-hardware)                                                                                                               |
+| [AWS FreeRTOS Documentation](https://docs.aws.amazon.com/freertos/)                                           | Documentation for AWS FreeRTOS.                                                                                                                                                                                                    |
+| [AWS FreeRTOS source code](https://github.com/aws/amazon-freertos)                                            | Source code of AWS FreeRTOS.                                                                                                                                                                                                      |
 | [AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)                         | Documentation for AWS IoT.                                                                                                                                                                                                         |
-| [Trusted Firmware-M](https://tf-m-user-guide.trustedfirmware.org/)                                            | Documentation for Trusted Firmware-M                                                                                                                                                                                               |
+| [Trusted Firmware-M Documentation](https://tf-m-user-guide.trustedfirmware.org/)                              | Documentation for Trusted Firmware-M.                                                                                                                                                                                               |
+| [Trusted Firmware-M Source code](https://git.trustedfirmware.org/TF-M/trusted-firmware-m.git)                 | Source code of Trusted Firmware-M.                                                                                                                                                                                               |
+| [Mbed Crypto](https://github.com/ARMmbed/mbedtls)                                                             | Mbed Crypto source code.                                                                                                                                                                                               |
+| [MCU Boot](https://github.com/mcu-tools/mcuboot)                                                              | MCU Boot source code.                                                                                                                                                                                               |
+| [ml-embedded-evaluation-kit](https://review.mlplatform.org/plugins/gitiles/ml/ethos-u/ml-embedded-evaluation-kit) | ML Embedded eval kit source code |
 | Support                                                                                                       | A [community.arm.com](http://community.arm.com/) forum exists for users to post queries. INTERNAL NOTE →   they have – already set up on the test environment (link).  This will be moved to the live environment on 19th October. |
 
 # License and contributions
