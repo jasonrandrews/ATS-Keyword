@@ -373,7 +373,7 @@
             <ScatterFile>./bsp/an547_ns.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>--cpu=Cortex-M55 --info=summarysizes,sizes,totals,unused,veneers --diag_suppress=6312 --diag_suppress=6314 --diag_suppress=6304 --diag_suppress=6329 --summary_stderr --load_addr_map_info build/secure_partition/s_veneers.o</Misc>
+            <Misc>--cpu=Cortex-M55 --info=summarysizes,sizes,totals,unused,veneers --diag_suppress=6312 --diag_suppress=6314 --diag_suppress=6304 --diag_suppress=6329 --summary_stderr --load_addr_map_info ./build/secure_partition/s_veneers.o</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>

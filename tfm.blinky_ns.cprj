@@ -18,7 +18,7 @@
 
   <target Ddsp="DSP" Dendian="Little-endian" Dfpu="DP_FPU" Dmve="FP_MVE" Dname="ARMCM55" Dsecure="Non-secure" Dtz="TZ" Dvendor="ARM:82">
     <output intdir="./build/blinky/" name="tfm_ns" outdir="./build/blinky/" type="exe"/>
-    <ldflags add="--cpu=Cortex-M55 --strict --info=summarysizes,sizes,totals,unused,veneers --strict --symbols --xref --diag_suppress=6312 --diag_suppress=6314 --diag_suppress=6304 --diag_suppress=6329 --map --summary_stderr --load_addr_map_info build/secure_partition/s_veneers.o" compiler="AC6" file="./bsp/an547_ns.sct"/>
+    <ldflags add="--cpu=Cortex-M55 --strict --info=summarysizes,sizes,totals,unused,veneers --strict --symbols --xref --diag_suppress=6312 --diag_suppress=6314 --diag_suppress=6304 --diag_suppress=6329 --map --summary_stderr --load_addr_map_info ./build/secure_partition/s_veneers.o" compiler="AC6" file="./bsp/an547_ns.sct"/>
     <cxxflags add="-std=c++17 -O0 -g" compiler="AC6"/>
     <cflags add="-std=c11 -O0 -g" compiler="AC6"/>
     <asflags compiler="AC6" use="armasm"/>
